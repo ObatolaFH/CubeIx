@@ -13,13 +13,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Hello JavaFX!");
-        btn.setOnAction( (event) -> Platform.exit() );
-        Pane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 150));
+        primaryStage.setTitle("CubeIx");
+        Pane root = new Pane();
+        Scene homeScene = new Scene(root, 720, 720);
+        primaryStage.setScene(homeScene);
         primaryStage.show();
     }
 }

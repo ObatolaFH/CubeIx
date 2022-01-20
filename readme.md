@@ -1,11 +1,4 @@
-### Start application
-Open gradle Window:
-- View -> Window Tools -> Gradle
-- In window -> Tasks -> Application -> run
-    
-    
-#### Helpful Links
-[Getting Started with JavaFX](https://openjfx.io/openjfx-docs/#gradle)
+### Welcome to CubIx
+A cube game :)
 
-[JavaFX Programm mit Gradle](https://kofler.info/javafx-programm-mit-gradle/)
-
+by Daxzon
