@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien;
+package CubeIx;
 
 import javafx.application.*;
 import javafx.scene.*;
@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
-public class App extends Application {
+public class Main extends Application {
     public static void main(String[] args){
         launch(args);
     }
