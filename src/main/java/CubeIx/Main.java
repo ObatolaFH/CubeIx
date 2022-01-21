@@ -17,6 +17,7 @@ public class Main extends Application {
     private static Pane homeRoot;
     private static Pane gameRoot;
     private static Cube player;
+    private static Paser paser;
     private static Scene homeScene;
     private static Scene gameScene;
 
@@ -26,10 +27,11 @@ public class Main extends Application {
         game.getTimeline().stop();
         homeRoot = new Pane();
         gameRoot = new Pane();
-        Cube player= new Cube(gameRoot);
+        player = new Cube();
+        paser = new Paser();
 
-        homeScene = new Scene(homeRoot, game.getGAME_SIZE(), game.getGAME_SIZE());
-        gameScene = new Scene(gameRoot, game.getGAME_SIZE(), game.getGAME_SIZE());
+        homeScene = new Scene(homeRoot, Game.getGAME_SIZE(), Game.getGAME_SIZE());
+        gameScene = new Scene(gameRoot, Game.getGAME_SIZE(), Game.getGAME_SIZE());
 
 
 
@@ -38,6 +40,7 @@ public class Main extends Application {
 
         Button startGame = new Button("Start Game");
         homeRoot.getChildren().addAll(startGame);
+        gameRoot.getChildren().addAll(player.getBody(), paser.getPaserBody());
         startGame.setOnAction(event -> {
             primaryStage.setScene(gameScene);
             game.getTimeline().play();

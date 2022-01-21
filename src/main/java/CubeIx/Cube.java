@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Cube {
-    private final double CUBE_SIZE = 65;
+    private static final double CUBE_SIZE = 60;
     private String position;
     private String nextPosition;
     private Rectangle body;
@@ -14,7 +14,7 @@ public class Cube {
     private double y_position = 0;
     Stage stage;
 
-    public Cube(Pane pane) {
+    public Cube() {
         body = new Rectangle();
         body.setHeight(CUBE_SIZE);
         body.setWidth(CUBE_SIZE);
@@ -22,47 +22,83 @@ public class Cube {
         body.setY(0);
         position = "NW";
         body.setFill(Color.RED);
-        pane.getChildren().addAll(body);
     }
 
     public void moveCube() {
-        if (Main.getGame().isCurrentInput()) {
-            switch (position) {
-                case "NW":
-                    if (Main.getGame().isCurrentInput() && nextPosition.equals("NE")) {
-                        this.body.setX(x_position + 5);
-                        this.x_position += 5;
-                        if (this.body.getX() == Main.getGame().getGAME_SIZE()) {
-                            Main.getGame().setCurrentInput(false);
-                        } else if (Main.getGame().isCurrentInput() && nextPosition.equals("SW")) {
-                            this.body.setY(x_position + 5);
-                            this.y_position += 5;
-                            if (this.body.getY() == Main.getGame().getGAME_SIZE()) {
-                                Main.getGame().setCurrentInput(false);
-                            }
-                        }
-                    }
-                    break;
-                /*
-            case "NE":
+        switch (position) {
+            case "NW":
                 if (Main.getGame().isCurrentInput() && nextPosition.equals("NE")) {
-                    this.body.setX(x_position + 5);
-                    if (this.body.getX() == Main.getGame().getGAME_SIZE()) {
+                    this.body.setX(x_position + 10);
+                    this.x_position += 10;
+                    if (this.body.getX() == (Game.getGAME_SIZE()) - CUBE_SIZE) {
+                        Main.getGame().setCurrentInput(false);
+                        position = "NE";
+                    }
+                }else if (Main.getGame().isCurrentInput() && nextPosition.equals("SW")) {
+                    this.body.setY(y_position + 10);
+                    this.y_position += 10;
+                    if (this.body.getY() == (Game.getGAME_SIZE()) - CUBE_SIZE) {
+                        Main.getGame().setCurrentInput(false);
+                        position = "SW";
+                    }
+                }
+                break;
+            case "NE":
+                if (Main.getGame().isCurrentInput() && nextPosition.equals("NW")) {
+                    this.body.setX(x_position - 10);
+                    this.x_position -= 10;
+                    if (this.body.getX() == 0) {
                         Main.getGame().setCurrentInput(false);
                         position = "NW";
                     }
-                } else if (Main.getGame().isCurrentInput() && nextPosition.equals("SW")) {
-                    this.body.setY(x_position + 5);
-                    if (this.body.getY() == Main.getGame().getGAME_SIZE()) {
+                }else if (Main.getGame().isCurrentInput() && nextPosition.equals("SE")) {
+                    this.body.setY(y_position + 10);
+                    this.y_position += 10;
+                    if (this.body.getY() == (Main.getGame().getGAME_SIZE()) - CUBE_SIZE) {
                         Main.getGame().setCurrentInput(false);
+                        position = "SE";
                     }
                 }
-                 */
-            }
+                break;
+            case "SW":
+                if (Main.getGame().isCurrentInput() && nextPosition.equals("SE")) {
+                    this.body.setX(x_position + 10);
+                    this.x_position += 10;
+                    if (this.body.getX() == (Main.getGame().getGAME_SIZE()) - CUBE_SIZE) {
+                        Main.getGame().setCurrentInput(false);
+                        position = "SE";
+                    }
+                }else if (Main.getGame().isCurrentInput() && nextPosition.equals("NW")) {
+                    this.body.setY(y_position - 10);
+                    this.y_position -= 10;
+                    if (this.body.getY() == 0) {
+                        Main.getGame().setCurrentInput(false);
+                        position = "NW";
+                    }
+                }
+                break;
+            case "SE":
+                if (Main.getGame().isCurrentInput() && nextPosition.equals("SW")) {
+                    this.body.setX(x_position - 10);
+                    this.x_position -= 10;
+                    if (this.body.getX() == 0) {
+                        Main.getGame().setCurrentInput(false);
+                        position = "SW";
+                    }
+                }else if (Main.getGame().isCurrentInput() && nextPosition.equals("NE")) {
+                    this.body.setY(y_position - 10);
+                    this.y_position -= 10;
+                    if (this.body.getY() == 0) {
+                        Main.getGame().setCurrentInput(false);
+                        position = "NE";
+                    }
+                }
+                break;
+
         }
     }
 
-    public double getCUBE_SIZE() {
+    public static double getCUBE_SIZE() {
         return CUBE_SIZE;
     }
 
@@ -76,5 +112,9 @@ public class Cube {
 
     public void setNextPosition(String nextPosition) {
         this.nextPosition = nextPosition;
+    }
+
+    public Rectangle getBody() {
+        return body;
     }
 }
