@@ -13,9 +13,11 @@ public class Game {
     //For the gameloop
     private Timeline timeline;
     private final double TICK_TIME = 10;
+    private int speed = 10;
 
     public Game() {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(TICK_TIME), event -> {
+            Main.getPaser().shootingLaser(speed, Main.getGameRoot());
             getInput();
             if(currentInput) {
                 Main.getPlayer().moveCube();

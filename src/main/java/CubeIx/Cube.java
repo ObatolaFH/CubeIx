@@ -21,6 +21,7 @@ public class Cube {
         body.setX(0);
         body.setY(0);
         position = "NW";
+        nextPosition = "NW";
         body.setFill(Color.RED);
     }
 
@@ -54,7 +55,7 @@ public class Cube {
                 }else if (Main.getGame().isCurrentInput() && nextPosition.equals("SE")) {
                     this.body.setY(y_position + 10);
                     this.y_position += 10;
-                    if (this.body.getY() == (Main.getGame().getGAME_SIZE()) - CUBE_SIZE) {
+                    if (this.body.getY() == (Game.getGAME_SIZE()) - CUBE_SIZE) {
                         Main.getGame().setCurrentInput(false);
                         position = "SE";
                     }
@@ -64,7 +65,7 @@ public class Cube {
                 if (Main.getGame().isCurrentInput() && nextPosition.equals("SE")) {
                     this.body.setX(x_position + 10);
                     this.x_position += 10;
-                    if (this.body.getX() == (Main.getGame().getGAME_SIZE()) - CUBE_SIZE) {
+                    if (this.body.getX() == (Game.getGAME_SIZE()) - CUBE_SIZE) {
                         Main.getGame().setCurrentInput(false);
                         position = "SE";
                     }

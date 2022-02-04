@@ -40,7 +40,7 @@ public class Main extends Application {
 
         Button startGame = new Button("Start Game");
         homeRoot.getChildren().addAll(startGame);
-        gameRoot.getChildren().addAll(player.getBody(), paser.getPaserBody());
+        gameRoot.getChildren().addAll(player.getBody(), paser.getPaserBody()); //paser.getLaser()
         startGame.setOnAction(event -> {
             primaryStage.setScene(gameScene);
             game.getTimeline().play();
@@ -71,5 +71,9 @@ public class Main extends Application {
 
     public static Scene getGameScene() {
         return gameScene;
+    }
+
+    public static Paser getPaser() {
+        return paser;
     }
 }
