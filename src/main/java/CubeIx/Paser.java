@@ -65,35 +65,42 @@ public class Paser {
             case 0, 1 -> this.laser.setY(this.laser.getY() - speed);
             case 2, 3 -> this.laser.setY(this.laser.getY() + speed);
         }
-        //Main.getGame().getTimeline().stop();
-        if(laser.getY() < -Cube.getCUBE_SIZE() || laser.getY() > (Game.getGAME_SIZE() + PASER_SIZE)){
-            pane.getChildren().removeAll(laser);
+        if(laser.getY() < -(Math.sqrt(Math.pow(Cube.getCUBE_SIZE(), 2) + Math.pow(Cube.getCUBE_SIZE(), 2)) * 0.75) ||
+                laser.getY() > (Game.getGAME_SIZE() + (Math.sqrt(Math.pow(Cube.getCUBE_SIZE(), 2) + Math.pow(Cube.getCUBE_SIZE(), 2)) / 2))){
+
             switch (this.randomNumber) {
-                case 0 -> {
-                    laser.getTransforms().add(new Rotate(45, paserBody.getX(), paserBody.getY()));
-                    laserPosition = "NW";
-                }
-                case 1 -> {
-                    laser.getTransforms().add(new Rotate(-45, (paserBody.getX() + PASER_SIZE),
-                            paserBody.getY()));
-                    laserPosition = "NE";
-                }
-                case 2 -> {
-                    laser.getTransforms().add(new Rotate(-45, paserBody.getX(),
-                            (paserBody.getY() + PASER_SIZE)));
-                    laserPosition = "SW";
-                }
-                case 3 -> {
-                    laser.getTransforms().add(new Rotate(45, (paserBody.getX() + PASER_SIZE),
-                            (paserBody.getY() + PASER_SIZE)));
-                    laserPosition = "SE";
-                }
+                case 0 -> laserPosition = "NW";
+                case 1 -> laserPosition = "NE";
+                case 2 -> laserPosition = "SW";
+                case 3 -> laserPosition = "SE";
             }
-            this.shooting = false;
-            if(laserPosition.equals(Main.getPlayer().getPosition()) &&
-                    laserPosition.equals(Main.getPlayer().getNextPosition())){
+
+
+            if(laser.getY() < (Game.getGAME_SIZE() / 2) - (Math.sqrt(Math.pow(Game.getGAME_SIZE() / 2, 2) + Math.pow(Game.getGAME_SIZE() / 2, 2))) ||
+                    laser.getY() > (Game.getGAME_SIZE() / 2) + Math.sqrt(Math.pow(Game.getGAME_SIZE() / 2, 2) + Math.pow(Game.getGAME_SIZE() / 2, 2))){
+                this.shooting = false;
+
+                switch (this.randomNumber) {
+                    case 0 -> laser.getTransforms().add(new Rotate(45, paserBody.getX(), paserBody.getY()));
+                    case 1 -> laser.getTransforms().add(new Rotate(-45, (paserBody.getX() + PASER_SIZE),
+                            paserBody.getY()));
+                    case 2 -> laser.getTransforms().add(new Rotate(-45, paserBody.getX(),
+                                (paserBody.getY() + PASER_SIZE)));
+                    case 3 -> laser.getTransforms().add(new Rotate(45, (paserBody.getX() + PASER_SIZE),
+                                (paserBody.getY() + PASER_SIZE)));
+                }
+
+                pane.getChildren().removeAll(laser);
+            }
+
+            if(Main.getPlayer().getLoopPosition() < 9 && laserPosition.equals(Main.getPlayer().getPosition())){
+                pane.getChildren().removeAll(laser);
+                Main.getGame().getTimeline().stop();
+            }else if(Main.getPlayer().getLoopPosition() > 56 && laserPosition.equals(Main.getPlayer().getNextPosition())){
+                pane.getChildren().removeAll(laser);
                 Main.getGame().getTimeline().stop();
             }
+
         }
     }
 

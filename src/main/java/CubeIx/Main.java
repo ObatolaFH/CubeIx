@@ -46,6 +46,7 @@ public class Main extends Application {
             game.getTimeline().play();
         });
         primaryStage.setScene(homeScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
