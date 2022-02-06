@@ -2,6 +2,7 @@ package CubeIx;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.Objects;
@@ -13,7 +14,8 @@ public class Game {
     //For the gameloop
     private Timeline timeline;
     private final double TICK_TIME = 10;
-    private int speed = 5;
+    private int speed = 3;
+    private int counter = 0;
 
     public Game() {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(TICK_TIME), event -> {
@@ -22,12 +24,24 @@ public class Game {
             if(currentInput) {
                 Main.getPlayer().moveCube();
             }
+            counter++;
+            if(counter == 3000){
+                speed++;
+                counter = 0;
+                System.out.println(speed);
+            }
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
     private void getInput() {
+        if(Main.getPaser().getDead()){
+            Main.getPlayer().getBody().setFill(Color.BLACK);
+            if(Main.getPlayer().getLoopPosition() == 1){
+                this.timeline.stop();
+            }
+        }
         Main.getGameScene().setOnKeyPressed(event -> {
             if (!currentInput) {
                 switch (event.getCode()) {

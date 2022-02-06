@@ -16,11 +16,15 @@ public class Paser {
     private Random ran;
     private int randomNumber;
     private boolean shooting;
+    private boolean hit;
+    private boolean dead;
     private String laserPosition;
+    private int healthBar;
 
     public Paser() {
         paserBody = new Rectangle();
         ran = new Random();
+        healthBar = 100;
         paserBody.setHeight(PASER_SIZE);
         paserBody.setWidth(PASER_SIZE);
         paserBody.setX((Game.getGAME_SIZE() / 2) - (PASER_SIZE / 2));
@@ -43,8 +47,10 @@ public class Paser {
     }
 
     public void shootingLaser(int speed, Pane pane){
-        if(!shooting) {
+        if(!shooting && !dead) {
             this.laserPosition = "N/A";
+            this.hit = false;
+            Main.getPlayer().getBody().setFill(Color.RED);
             this.randomNumber = ran.nextInt(4);
             laser.setX(laserPosition_x[randomNumber]);
             laser.setY(laserPosition_y[randomNumber]);
@@ -93,12 +99,29 @@ public class Paser {
                 pane.getChildren().removeAll(laser);
             }
 
-            if(Main.getPlayer().getLoopPosition() < 9 && laserPosition.equals(Main.getPlayer().getPosition())){
+            if(Main.getPlayer().getLoopPosition() < 5 && laserPosition.equals(Main.getPlayer().getPosition())){
                 pane.getChildren().removeAll(laser);
-                Main.getGame().getTimeline().stop();
-            }else if(Main.getPlayer().getLoopPosition() > 56 && laserPosition.equals(Main.getPlayer().getNextPosition())){
+                if(!hit) {
+                    healthBar -= 10;
+                    System.out.println(healthBar);
+                    Main.getPlayer().getBody().setFill(Color.BLUE);
+                }
+                if(this.healthBar == 0) {
+                    dead = true;
+                }
+                hit = true;
+
+            }else if(Main.getPlayer().getLoopPosition() > 60 && laserPosition.equals(Main.getPlayer().getNextPosition())){
                 pane.getChildren().removeAll(laser);
-                Main.getGame().getTimeline().stop();
+                if(!hit) {
+                    healthBar -= 10;
+                    System.out.println(healthBar);
+                    Main.getPlayer().getBody().setFill(Color.BLUE);
+                }
+                if(this.healthBar == 0) {
+                    dead = true;
+                }
+                hit = true;
             }
 
         }
@@ -110,5 +133,9 @@ public class Paser {
 
     public Rectangle getLaser() {
         return laser;
+    }
+
+    public boolean getDead(){
+        return dead;
     }
 }
