@@ -57,6 +57,11 @@ public class Paser {
     }
 
     public void shootingLaser(int speed, Pane pane){
+        if(Main.getGame().getScore() == 25) {
+            Main.getGame().setSpeed(3);
+            shootingLaser2(speed, pane);
+        }
+
         if(!shooting && !dead) {
             this.laserPosition = "N/A";
             this.hit = false;
@@ -106,6 +111,9 @@ public class Paser {
                                 (paserBody.getY() + PASER_SIZE)));
                 }
 
+                Main.getGame().setScore(Main.getGame().getScore() + 1);
+                System.out.println(Main.getGame().getScore());
+
                 pane.getChildren().removeAll(laser);
             }
 
@@ -135,7 +143,9 @@ public class Paser {
             }
 
         }
-        shootingLaser2(speed, pane);
+        if(Main.getGame().getScore() > 25){
+            shootingLaser2(speed, pane);
+        }
     }
 
     public void shootingLaser2(int speed, Pane pane){

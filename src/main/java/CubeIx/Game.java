@@ -16,6 +16,7 @@ public class Game {
     private final double TICK_TIME = 10;
     private int speed = 3;
     private int counter = 0;
+    private int score = 0;
 
     public Game() {
         this.timeline = new Timeline(new KeyFrame(Duration.millis(TICK_TIME), event -> {
@@ -104,5 +105,21 @@ public class Game {
 
     public void setCurrentInput(boolean currentInput) {
         this.currentInput = currentInput;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }
